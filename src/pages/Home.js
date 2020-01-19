@@ -51,6 +51,8 @@ class Home extends React.Component {
         setTimeout(() => {
             this.setState({message: 'I am updated Message'})
         }, 1000)
+
+        this.decrement = this.decrement.bind(this)
     }
 
     increment = () => {
@@ -64,8 +66,6 @@ class Home extends React.Component {
     }
 
 
-
-
     render() {
         const { message, count } = this.state;
         return (
@@ -75,7 +75,8 @@ class Home extends React.Component {
                 <button onClick={this.increment}>Increment</button>
                 <div className="counter">{count}</div>
                 { /*<button onClick={() => this.decrement()}>Decrement</button> */ }
-                <button onClick={this.decrement.bind(this)}>Decrement</button>
+                { /*<button onClick={this.decrement.bind(this)}>Decrement</button>*/ }
+                <button onClick={this.decrement}>Decrement</button>
             </div>
         )
     }
