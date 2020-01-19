@@ -35,7 +35,8 @@ import Counter from "../components/Counter";
 class Home extends React.Component {
 
     state = {
-        message: 'Super Message!!!'
+        message: 'Super Message!!!',
+        testNumber: 99
     }
 
     componentDidMount() {
@@ -53,12 +54,14 @@ class Home extends React.Component {
     }
 
     render() {
-        const { message } = this.state;
+        const { message, testNumber } = this.state;
         return (
             <div className="container">
                 <h1>I am Home Page</h1>
                 <p>{message}</p>
+                <button onClick={() => this.setState({testNumber: testNumber + 1})}>Test Number increment</button>
                 <Counter
+                    testNumber={testNumber}
                     onChange={this.displayMessage}
                     title={'this is counter component.'}/>
             </div>
