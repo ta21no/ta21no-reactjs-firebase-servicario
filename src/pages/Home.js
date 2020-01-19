@@ -74,7 +74,8 @@ class Home extends React.Component {
                 <p>{message}</p>
                 <button onClick={this.increment}>Increment</button>
                 <div className="counter">{count}</div>
-                <button onClick={() => this.decrement()}>Decrement</button>
+                { /*<button onClick={() => this.decrement()}>Decrement</button> */ }
+                <button onClick={this.decrement.bind(this)}>Decrement</button>
             </div>
         )
     }
