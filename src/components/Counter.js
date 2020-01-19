@@ -1,8 +1,15 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 
 const Counter = props => {
     const [count, setCount] = useState(0)
     const { title, onChange } = props
+
+    const prevCountRef = useRef()
+
+    useEffect(() => {
+        debugger
+        prevCountRef.current = count
+    })
 
     const increment = () => {
         const newCount = count + 1
@@ -16,11 +23,15 @@ const Counter = props => {
         onChange('decrement', newCount)
     }
 
+    debugger
+    const prevCount = prevCountRef.current
+
     return (
         <div>
             <h1>{title}</h1>
             <button onClick={increment}>Increment</button>
-            <div className="counter">{count}</div>
+            <div className="counter">Current: {count}</div>
+            <div className="counter">Previout: Current: {prevCount}</div>
             <button onClick={decrement}>Decrement</button>
         </div>
     )
