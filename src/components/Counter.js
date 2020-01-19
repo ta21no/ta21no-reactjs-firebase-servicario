@@ -1,14 +1,20 @@
 import React, {useEffect, useState, useRef} from 'react'
 
+function usePrevious(value) {
+    const ref = useRef()
+
+    useEffect(() => {
+        ref.current = value
+    })
+
+    return ref.current
+}
+
 const Counter = props => {
     const [count, setCount] = useState(0)
     const { title, onChange } = props
 
-    const prevCountRef = useRef()
-
-    useEffect(() => {
-        prevCountRef.current = count
-    })
+    const prevCount = usePrevious(count)
 
     const increment = () => {
         const newCount = count + 1
@@ -21,8 +27,6 @@ const Counter = props => {
         setCount(newCount)
         onChange('decrement', newCount)
     }
-
-    const prevCount = prevCountRef.current
 
     return (
         <div>
