@@ -7,7 +7,6 @@ const Counter = props => {
     const prevCountRef = useRef()
 
     useEffect(() => {
-        debugger
         prevCountRef.current = count
     })
 
@@ -23,7 +22,6 @@ const Counter = props => {
         onChange('decrement', newCount)
     }
 
-    debugger
     const prevCount = prevCountRef.current
 
     return (
