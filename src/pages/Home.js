@@ -4,6 +4,7 @@ import './Home.css'
 const Home = () => {
 
     const [message, setMessage] = useState('Super Message!!!')
+    const [count, setCount] = useState(0)
 
     useEffect(() => {
         setTimeout(() => {
@@ -11,10 +12,21 @@ const Home = () => {
         }, 1000)
     }, [])
 
+    const increment = () => {
+        setCount(count + 1)
+    }
+
+    const decrement = () => {
+        setCount(count - 1)
+    }
+
     return (
         <div className="container">
             <h1>I am Home Page</h1>
             <p>{message}</p>
+            <button onClick={increment}>Increment</button>
+            <div className="counter">{count}</div>
+            <button onClick={decrement}>Decrement</button>
         </div>
     )
 }
