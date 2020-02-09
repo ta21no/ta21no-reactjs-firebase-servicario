@@ -1,6 +1,7 @@
 /* eslint jsx-a11y/anchor-is-valid: 0 */
 
 import React from 'react'
+import { connect } from 'react-redux'
 import { getServices } from "../store";
 import ServiceItem from "../components/service/ServiceItem";
 import Hero from "../components/Hero";
@@ -16,10 +17,12 @@ class Home extends React.Component {
         this.setState({services})
     }
 
-    renderServices = services => services.map(service =><ServiceItem key={service.id} service={service} />)
+    renderServices = (services) => services.map(service =><ServiceItem key={service.id} service={service} />)
 
     render() {
         const { services } = this.state
+        const { testingData, testingNumber } = this.props.test
+        // debugger
         return (
             <div>
 
@@ -45,4 +48,7 @@ class Home extends React.Component {
     }
 }
 
-export default Home
+const mapStateToProps = state => ({test: state.service})
+
+
+export default connect(mapStateToProps)(Home)
