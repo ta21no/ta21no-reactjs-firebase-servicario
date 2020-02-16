@@ -2,9 +2,11 @@
 
 import React from 'react'
 import { connect } from 'react-redux'
-import { getServices } from "../store";
 import ServiceItem from "../components/service/ServiceItem";
-import Hero from "../components/Hero";
+import Hero from "../components/Hero"
+
+// import { getServices } from "../store"
+import { fetchServices } from '../actions'
 
 class Home extends React.Component {
 
@@ -13,15 +15,22 @@ class Home extends React.Component {
     }
 
     componentDidMount() {
-        const services = getServices()
-        this.setState({services})
+        // debugger
+        this.props.dispatch(fetchServices())
+
+
+        // const services = getServices()
+        // this.setState({services})
     }
 
-    renderServices = (services) => services.map(service =><ServiceItem key={service.id} service={service} />)
+    renderServices = (services) => {
+        // debugger
+        // return '';
+        return services.map(service =><ServiceItem key={service.id} service={service} />)
+    }
 
     render() {
-        const { services } = this.state
-        const { testingData, testingNumber } = this.props.test
+        const { services } = this.props
         // debugger
         return (
             <div>
@@ -48,7 +57,9 @@ class Home extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({test: state.service})
+const mapStateToProps = state => {
+    return {services: state.service.items}
+}
 
 
 export default connect(mapStateToProps)(Home)
