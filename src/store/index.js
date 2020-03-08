@@ -33,7 +33,14 @@ const addPromiseToDispatch = store => {
 
 }
 
+const applyMiddlewares = (store, middlewares) => {
+  middlewares.slice().reverse().forEach(middleware => {
+    store.dispatch = middleware(store);
+  })
+}
+
 const initStore = () => {
+  const middlewares = [addPromiseToDispatch]
   const serviceApp = combineReducers({
     service: serviceReducer
   })
@@ -41,9 +48,10 @@ const initStore = () => {
   const browserSupport = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   const store = createStore(serviceApp, browserSupport)
   if (process.env.NODE_ENV !== 'production') {
-    store.dispatch = addLoggerToDispatch(store);
+    middlewares.push(addLoggerToDispatch);
   }
-  store.dispatch = addPromiseToDispatch(store)
+
+  applyMiddlewares(store, middlewares)
 
   return store
 }
