@@ -9,7 +9,7 @@ export const fetchServices = () => {
     .collection('services')
     .get()
     .then(snapshot => {
-      const services = snapshot.docs.map(doc => doc.data())
+      const services = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
       return {
         type: FETCH_SERVICES_SUCCESS,
         services
