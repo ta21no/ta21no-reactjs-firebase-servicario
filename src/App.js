@@ -14,7 +14,7 @@ import RegisterPage from './pages/Register'
 
 import Sidebar from 'components/Sidebar'
 import Navbar from './components/Navbar'
-
+debugger
 const store = initStore()
 
 function App() {

@@ -1,6 +1,6 @@
 
 
-import { FETCH_SERVICES } from "../types";
+import { FETCH_SERVICES_SUCCESS } from "../types";
 
 const INITIAL_STATE = {
   items: []
@@ -8,8 +8,9 @@ const INITIAL_STATE = {
 
 const serviceReducer = (state = INITIAL_STATE, action) => {
 
+  debugger
   switch (action.type) {
-    case FETCH_SERVICES :
+    case FETCH_SERVICES_SUCCESS :
       return {...state, items: action.services}
 
     default :

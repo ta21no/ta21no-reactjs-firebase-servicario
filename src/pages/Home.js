@@ -15,23 +15,17 @@ class Home extends React.Component {
     }
 
     componentDidMount() {
-        // debugger
+        debugger
         this.props.dispatch(fetchServices())
-
-
-        // const services = getServices()
-        // this.setState({services})
     }
 
     renderServices = (services) => {
-        // debugger
-        // return '';
         return services.map(service =><ServiceItem key={service.id} service={service} />)
     }
 
     render() {
+        debugger
         const { services } = this.props
-        // debugger
         return (
             <div>
 
@@ -58,6 +52,7 @@ class Home extends React.Component {
 }
 
 const mapStateToProps = state => {
+    debugger
     return {services: state.service.items}
 }
 
