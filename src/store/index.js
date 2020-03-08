@@ -2,39 +2,27 @@
 import { createStore, combineReducers } from "redux"
 import serviceReducer from "../reducers";
 
-const addLoggerToDispatch = store => {
-  return dispatch => {
-    return action => {
-      console.group(action.type)
-      console.log('%c prev state', 'color: gray', store.getState())
-      console.log('%c action', 'color: blue', action)
-      const returnValue = dispatch(action)
-      console.log('%c next state', 'color: green', store.getState())
-      console.groupEnd(action.type)
-      return returnValue
-    }
-  }
+const addLoggerToDispatch = store => dispatch => action => {
+  console.group(action.type)
+  console.log('%c prev state', 'color: gray', store.getState())
+  console.log('%c action', 'color: blue', action)
+  const returnValue = dispatch(action)
+  console.log('%c next state', 'color: green', store.getState())
+  console.groupEnd(action.type)
+  return returnValue
 }
 
-const addPromiseToDispatch = store => {
-  debugger
-  return dispatch => {
-    return action => {
-      if (typeof action.then === 'function') {
-        return action.then((action) => {
-          dispatch(action)
-        })
-      }
-
-      return dispatch(action);
-    }
+const addPromiseToDispatch = store => dispatch => action => {
+  if (typeof action.then === 'function') {
+    return action.then((action) => {
+      dispatch(action)
+    })
   }
+  return dispatch(action);
 }
 
 const applyMiddlewares = (store, middlewares) => {
-  debugger
   middlewares.slice().reverse().forEach(middleware => {
-    debugger
     store.dispatch = middleware(store)(store.dispatch);
   })
 }
