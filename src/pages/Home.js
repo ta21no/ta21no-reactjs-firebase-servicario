@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import ServiceItem from "../components/service/ServiceItem";
 import Hero from "../components/Hero"
 
-// import { getServices } from "../store"
 import { fetchServices } from '../actions'
 
 class Home extends React.Component {
@@ -50,7 +49,7 @@ class Home extends React.Component {
 }
 
 const mapStateToProps = state => {
-    return {services: state.service.items}
+    return {services: state.services.all}
 }
 
 

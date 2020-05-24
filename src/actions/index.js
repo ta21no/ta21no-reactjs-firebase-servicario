@@ -1,20 +1,42 @@
 
-import { FETCH_SERVICES_SUCCESS } from "../types";
+import { FETCH_SERVICES_SUCCESS, FETCH_SERVICE_SUCCESS, REQUEST_SERVICE } from "../types";
 
-import db from '../db'
+
+import * as api from '../api';
+
+export const requestService = () => (
+  {
+    type: REQUEST_SERVICE
+  }
+)
+
+export const resetPreviousService = () => (
+  {
+    type: FETCH_SERVICE_SUCCESS,
+    service: {}
+  }
+)
+
 
 export const fetchServices = () => {
 
-  return db
-    .collection('services')
-    .get()
-    .then(snapshot => {
-      const services = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
-      return {
-        type: FETCH_SERVICES_SUCCESS,
-        services
-      }
-    })
+  return api
+    .fetchServices()
+    .then(services => ({
+      type: FETCH_SERVICES_SUCCESS,
+      services
+    }))
 
+}
+
+
+export const fetchServiceById = serviceId => {
+
+  return api
+    .fetchServiceById(serviceId)
+    .then(service =>({
+      type: FETCH_SERVICE_SUCCESS,
+      service
+    }))
 
 }

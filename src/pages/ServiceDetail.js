@@ -1,9 +1,26 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useParams } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { fetchServiceById, requestService, resetPreviousService } from "../actions";
 
-const ServiceDetail = () => {
+import Spinner from "../components/Spinner"
+
+const ServiceDetail = props => {
 
   const { serviceId } = useParams()
+  const { dispatch, isFetching } = props
+
+  useEffect(() => {
+      dispatch(resetPreviousService())
+      dispatch(requestService())
+      dispatch(fetchServiceById(serviceId))
+  }, [serviceId, dispatch])
+
+  const { service } = props
+
+  if (isFetching && !service.id) {
+    return <Spinner />
+  }
 
   return (
     <section className="hero is-fullheight is-default is-bold">
@@ -12,22 +29,21 @@ const ServiceDetail = () => {
           <div className="columns is-vcentered">
             <div className="column is-5">
               <figure className="image is-4by3">
-                <img src="" alt="Description"/>
+                <img src={service.image} alt="Description"/>
               </figure>
             </div>
             <div className="column is-6 is-offset-1">
               <h1 className="title is-2">
-                Hardcoded Title
-                {serviceId}
+                {service.title}
               </h1>
               <h2 className="subtitle is-4">
-                Hardcoded Description
+                {service.description}
               </h2>
               <br/>
               <p className="has-text-centered">
-                <a className="button is-medium is-info is-outlined">
+                <button className="button is-medium is-info is-outlined">
                   Learn more
-                </a>
+                </button>
               </p>
             </div>
           </div>
@@ -37,13 +53,21 @@ const ServiceDetail = () => {
         <div className="container">
           <div className="tabs is-centered">
             <ul>
-              <li><a>And this is the bottom</a></li>
+              <li><button>And this is the bottom</button></li>
             </ul>
           </div>
         </div>
       </div>
     </section>
-  )
+  );
 }
 
-export default ServiceDetail
+const mapStateToProps = ({selectedService}) => {
+  return {
+    service: selectedService.item,
+    isFetching: selectedService.isFetching
+  }
+}
+
+
+export default connect(mapStateToProps)(ServiceDetail)
