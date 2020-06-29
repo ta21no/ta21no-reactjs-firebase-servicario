@@ -4,25 +4,11 @@ import { FETCH_SERVICES_SUCCESS, FETCH_SERVICE_SUCCESS, REQUEST_SERVICE } from "
 
 import * as api from '../api';
 
-export const requestService = () => (
-  {
-    type: REQUEST_SERVICE
-  }
-)
-
-export const resetPreviousService = () => (
-  {
-    type: FETCH_SERVICE_SUCCESS,
-    service: {}
-  }
-)
-
-
-export const fetchServices = () => {
+export const fetchServices = () => dispatch => {
 
   return api
     .fetchServices()
-    .then(services => ({
+    .then(services => dispatch({
       type: FETCH_SERVICES_SUCCESS,
       services
     }))
@@ -30,13 +16,13 @@ export const fetchServices = () => {
 }
 
 
-export const fetchServiceById = serviceId => {
-
+export const fetchServiceById = serviceId => dispatch => {
+  dispatch({type: FETCH_SERVICE_SUCCESS, service: {}})
+  dispatch({type: REQUEST_SERVICE})
   return api
     .fetchServiceById(serviceId)
-    .then(service =>({
+    .then(service => dispatch({
       type: FETCH_SERVICE_SUCCESS,
       service
     }))
-
 }
