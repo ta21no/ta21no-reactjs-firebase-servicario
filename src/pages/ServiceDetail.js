@@ -11,7 +11,7 @@ const ServiceDetail = props => {
   const { dispatch, isFetching } = props
 
   useEffect(() => {
-    debugger
+    // debugger
       // dispatch(resetPreviousService())
       // dispatch(requestService())
       dispatch(fetchServiceById(serviceId))

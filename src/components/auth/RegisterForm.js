@@ -2,23 +2,17 @@
 /* eslint no-useless-escape: 0 */
 
 import React from 'react'
-import {useForm} from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { isValidImage, isValidUrl, sameAs } from "../../helpers/validators";
 
-const RegisterForm = () => {
+const RegisterForm = (props) => {
 
   const {register, handleSubmit, errors, getValues } = useForm()
 
-  const getFormData = data => {
-    console.log(data)
-  }
-
-
   const emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-  const avatarPattern = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/gm
 
   return (
-    <form onSubmit={handleSubmit(getFormData)}>
+    <form onSubmit={handleSubmit(props.onRegister)}>
       <div className="field">
         <div className="control">
           <input ref={register({required: true, pattern: emailPattern})}
@@ -79,6 +73,7 @@ const RegisterForm = () => {
           { errors.password &&
             <div className="form-error">
               {errors.password.type === 'required' && <span className="help is-danger">Password is required</span>}
+              {errors.password.type === 'maxLength' && <span className="help is-danger">Password max length  is 6.</span>}
             </div>
           }
         </div>

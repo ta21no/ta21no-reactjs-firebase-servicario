@@ -1,7 +1,20 @@
-import React from 'react'
-import RegisterForm from "../components/auth/RegisterForm";
+/* eslist jsx-ally/anchor-is-valid: 0 */
 
-const Register = () => {
+import React from 'react'
+import { connect } from 'react-redux'
+import RegisterForm from "../components/auth/RegisterForm";
+import { register } from 'actions'
+
+const Register = (props) => {
+
+  const registerUser = (userData) => {
+    debugger
+    props.dispatch(register(userData))
+      .then((_) => {
+      }, (errorMessage) => {
+      })
+  }
+
   return (
     <div className="auth-page">
       <div className="container has-text-centered">
@@ -13,7 +26,7 @@ const Register = () => {
               <img src="https://placehold.it/128x128" alt="Company Logo"/>
             </figure>
 
-            <RegisterForm />
+            <RegisterForm onRegister={registerUser}/>
 
           </div>
           <p className="has-text-grey">
@@ -27,4 +40,4 @@ const Register = () => {
   )
 }
 
-export default Register
+export default connect()(Register)
