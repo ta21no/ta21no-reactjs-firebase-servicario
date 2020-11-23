@@ -9,7 +9,7 @@ const Login = () => {
           <p className="subtitle has-text-grey">Please login to proceed.</p>
           <div className="box">
             <figure className="avatar">
-              <img src="https://placehold.it/128x128"/>
+              <img src="https://placehold.it/128x128" alt="Company Logo" />
             </figure>
             <form>
               <div className="field">
@@ -43,7 +43,7 @@ const Login = () => {
             </form>
           </div>
           <p className="has-text-grey">
-            <a>Sign In With Google</a>&nbsp;
+            <button>Sign In With Google</button>&nbsp;
             <a href="/">Sign Up</a> &nbsp;·&nbsp;
             <a href="../">Need Help?</a>
           </p>
